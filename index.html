@@ -25,6 +25,7 @@
 
                 <form name="commentForm" ng-submit="addComment()">
                     <div class="form-group">
+                        <!--TODO figure out a better way than radio buttons to do ratings-->
                         <label>Rating
                             <label for="rating1">1</label>
                             <input class="form-inline" type="radio" name="rating" id="rating1" value="1" ng-model="newComment.rating"/>
@@ -82,6 +83,7 @@
                         <p class="rating">Rating: {{comment.rating}}</p>
                         <p class="commentBody">{{comment.body}}</p>
                         <p class="score">Score: {{comment.score}}</p>
+                        <!--TODO score incrementer-->
                     </li>
                 </ul>
             </section>

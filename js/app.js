@@ -4,6 +4,7 @@
     define your module and controllers here
 */
 
+//TODO need to comment pretty much everything still
 var commentUrl = 'https://api.parse.com/1/classes/comments';
 
 angular.module('ReviewApp', [])
