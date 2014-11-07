@@ -32,14 +32,14 @@ angular.module('ReviewApp', [])
 
         $scope.getComments();
 
-        $scope.newComment = {rating: null, name: '', title: '', body: '', score: 0};
+        $scope.newComment = {rating: 1, name: '', title: '', body: '', score: 0};
         $scope.addComment = function() {
             $http.post(commentUrl, $scope.newComment)
                 .success(function(responseData) {
                     $scope.loading = true;
                     $scope.newComment.objectId = responseData.objectId;
                     $scope.comments.push($scope.newComment);
-                    $scope.newComment = {rating: null, name: '', title: '', body: '', score: 0};
+                    $scope.newComment = {rating: 1, name: '', title: '', body: '', score: 0};
                 })
                 .error(function() {
                     $scope.errorMessage = err;
