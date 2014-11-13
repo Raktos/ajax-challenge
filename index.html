@@ -47,7 +47,8 @@
                     </div>
 
                     <div class="form-group">
-                        <button type="submit" class="btn btn-primary"><!--ng-disabled="inserting"-->Submit Comment</button>
+                        <button type="submit" class="btn btn-primary" ng-if="!loading"><!--ng-disabled="inserting"-->Submit Comment</button>
+                        <img src="img/ajax-spinner.gif" alt="loading" ng-if="loading"/>
                     </div>
 
                     <h3>TEMP newComment Object Status</h3>
@@ -63,17 +64,23 @@
                 as well as delete it
                  -->
                 <ul class="comments">
-                    <li class="comment" ng-repeat="comment in comments | orderBy: 'score' : reverse">
+                    <li class="comment" ng-repeat="comment in comments">
+                        <div class="rating">
+                            <rating name="rating" max="5" ng-model="comment.rating" readonly="true"></rating>
+                        </div>
+
+                        <div class="remove">
+                            <span class="glyphicon glyphicon-remove" ng-click="deleteComment(comment)"></span>
+                        </div>
+
                         <h3 class="commentTitle">{{comment.title}}</h3>
                         <p class="name">{{comment.name}}</p>
-                        <rating name="rating" max="5" ng-model="comment.rating" readonly="true"></rating>
                         <p class="commentBody">{{comment.body}}</p>
                         <div class="score">
                             {{comment.score}}
                             <span class="glyphicon glyphicon-thumbs-up" ng-click="incrementScore(comment, 1)"></span>
                             <span class="glyphicon glyphicon-thumbs-down" ng-click="incrementScore(comment, -1)"></span>
                         </div>
-                        <!--TODO score incrementer-->
                     </li>
                 </ul>
             </section>

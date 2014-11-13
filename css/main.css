@@ -10,4 +10,47 @@ body {
     height: 130px;
     margin-right: 10px;
 }
-/* TODO pretty much the entire styling still needs to be done */
+
+.comment {
+    border: solid 2px;
+    border-radius: 10px;
+    width: 90%;
+    margin-bottom: 1em;
+    padding: 0 1em 1em 1em;
+    list-style: none;
+}
+
+.rating {
+    float: left;
+    display: inline;
+    padding-top: .25em;
+    padding-right: .5em;
+}
+
+.commentTitle {
+    display: inline;
+    clear: both;
+}
+
+.name {
+
+}
+
+.glyphicon-thumbs-up:hover {
+    background-color: greenyellow;
+    cursor: pointer;
+}
+
+.glyphicon-thumbs-down:hover {
+    background-color: red;
+    cursor: pointer;
+}
+
+.remove {
+    float: right;
+}
+
+.remove:hover {
+    background-color: red;
+    cursor: pointer;
+}

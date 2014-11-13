@@ -21,7 +21,7 @@ angular.module('ReviewApp', ['ui.bootstrap'])
 
             $http.get(commentUrl)
                 .success(function(data) {
-                    $scope.comments = data.results;
+                    $scope.comments = _.sortBy(data.results, 'score').reverse();
                 })
                 .error(function(err) {
                     $scope.errorMessage = err;
@@ -38,9 +38,10 @@ angular.module('ReviewApp', ['ui.bootstrap'])
         $scope.newComment = {rating: 1, name: '', title: '', body: '', score: 0};
 
         $scope.addComment = function() {
+            $scope.loading = true;
+
             $http.post(commentUrl, $scope.newComment)
                 .success(function(responseData) {
-                    $scope.loading = true;
                     $scope.newComment.objectId = responseData.objectId;
                     $scope.comments.push($scope.newComment);
                     $scope.newComment = {rating: 1, name: '', title: '', body: '', score: 0};
@@ -54,8 +55,6 @@ angular.module('ReviewApp', ['ui.bootstrap'])
         }; //addComment()
 
         $scope.incrementScore = function(comment, amt) {
-            $scope.loading = true;
-
             $http.put(commentUrl + '/' + comment.objectId, {
                 score: {
                     __op: 'Increment',
@@ -69,9 +68,24 @@ angular.module('ReviewApp', ['ui.bootstrap'])
                 .error(function(err) {
                     console.log(err);
                 })
-                .finally(function() {
-                    $scope.updating = false;
-                })
+//                .finally(function() {
+//                    $scope.loading = false;
+//                });
             console.log($scope.comments);
         }; //incrementScore()
+
+        $scope.deleteComment = function(comment) {
+            $scope.loading = true;
+
+            $http.delete(commentUrl + '/' + comment.objectId)
+                .success(function() {
+                    $scope.getComments();
+                })
+                .error(function(err) {
+                    $scope.errorMessage = err;
+                })
+                .finally(function() {
+                    $scope.loading = false;
+                })
+        }
     });
