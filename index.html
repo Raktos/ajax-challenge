@@ -24,40 +24,26 @@
                 <h2>Add a Comment</h2>
 
                 <form name="commentForm" ng-submit="addComment()">
+
                     <div class="form-group">
-                        <!--TODO figure out a better way than radio buttons to do ratings-->
-                        <label>Rating
-                            <label for="rating1">1</label>
-                            <input class="form-inline" type="radio" name="rating" id="rating1" value="1" ng-model="newComment.rating"/>
-
-                            <label for="rating1">2</label>
-                            <input class="form-inline" type="radio" name="rating" id="rating2" value="2" ng-model="newComment.rating"/>
-
-                            <label for="rating1">3</label>
-                            <input class="form-inline" type="radio" name="rating" id="rating3" value="3" ng-model="newComment.rating"/>
-
-                            <label for="rating1">4</label>
-                            <input class="form-inline" type="radio" name="rating" id="rating4" value="4" ng-model="newComment.rating"/>
-
-                            <label for="rating1">5</label>
-                            <input class="form-inline" type="radio" name="rating" id="rating5" value="5" ng-model="newComment.rating"/>
-                        </label>
+                        <label>Rating</label><br>
+                        <rating name="rating" max="5" ng-model="newComment.rating"></rating>
                     </div>
 
                     <!--TODO make this only highlight after they have typed something-->
                     <div class="form-group" ng-class="{'has-error': commentForm.name.$invalid}">
                         <label for="name">Name</label>
-                        <input class="form-control" type="text" name="name" id="name" placeholder="name..." ng-model="newComment.name" required/>
+                        <input class="form-control" type="text" name="name" id="name" placeholder="name..." ng-model="newComment.name"/>
                     </div>
 
                     <div class="form-group">
                         <label for="commentTitle">Comment Title</label>
-                        <input class="form-control" type="text" name="commentTitle" id="commentTitle" placeholder="Title..." ng-model="newComment.title" required/>
+                        <input class="form-control" type="text" name="commentTitle" id="commentTitle" placeholder="Title..." ng-model="newComment.title"/>
                     </div>
                     
                     <div class="form-group">
                         <label for="commentBody">Comments</label>
-                        <textarea class="form-control" name="commentBody" id="commentBody" placeholder="Comments..." ng-model="newComment.body" required></textarea>
+                        <textarea class="form-control" name="commentBody" id="commentBody" placeholder="Comments..." ng-model="newComment.body"></textarea>
                     </div>
 
                     <div class="form-group">
@@ -77,12 +63,16 @@
                 as well as delete it
                  -->
                 <ul class="comments">
-                    <li class="comment" ng-repeat="comment in comments | orderBy: score">
+                    <li class="comment" ng-repeat="comment in comments | orderBy: 'score' : reverse">
                         <h3 class="commentTitle">{{comment.title}}</h3>
                         <p class="name">{{comment.name}}</p>
-                        <p class="rating">Rating: {{comment.rating}}</p>
+                        <rating name="rating" max="5" ng-model="comment.rating" readonly="true"></rating>
                         <p class="commentBody">{{comment.body}}</p>
-                        <p class="score">Score: {{comment.score}}</p>
+                        <div class="score">
+                            {{comment.score}}
+                            <span class="glyphicon glyphicon-thumbs-up" ng-click="incrementScore(comment, 1)"></span>
+                            <span class="glyphicon glyphicon-thumbs-down" ng-click="incrementScore(comment, -1)"></span>
+                        </div>
                         <!--TODO score incrementer-->
                     </li>
                 </ul>
