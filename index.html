@@ -14,24 +14,24 @@
     <body>
 
         <main class="container" ng-app="ReviewApp" ng-controller="ReviewsController">
-            <section>
+            <section id="product">
                 <img src="img/super-bass-o-matic-76.jpg" alt="product picture" class="product-picture">
                 <h1>The Super Bass-o-Matic '76</h1>
                 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Officia cumque deserunt ullam repudiandae nisi corporis! Ipsum, ducimus commodi, itaque porro distinctio consequuntur! Autem doloremque numquam nemo ex nulla tempora quis! Lorem ipsum dolor sit amet, consectetur adipisicing elit. Unde nihil doloribus excepturi quisquam error possimus veritatis facere, commodi cumque ab atque dolore ducimus obcaecati ipsa, impedit! Consequuntur, eligendi iure cumque!</p>
             </section>
 
-            <section>
+            <section id="addComment">
                 <h2>Add a Comment</h2>
 
                 <form name="commentForm" ng-submit="addComment()">
 
+                    <!--TODO form validation-->
                     <div class="form-group">
                         <label>Rating</label><br>
                         <rating name="rating" max="5" ng-model="newComment.rating"></rating>
                     </div>
 
-                    <!--TODO make this only highlight after they have typed something-->
-                    <div class="form-group" ng-class="{'has-error': commentForm.name.$invalid}">
+                    <div class="form-group">
                         <label for="name">Name</label>
                         <input class="form-control" type="text" name="name" id="name" placeholder="name..." ng-model="newComment.name"/>
                     </div>
@@ -56,21 +56,16 @@
                 </form>
             </section>
 
-            <section>
+            <section id="comments">
                 <h2>Comments</h2>
-                <!-- 
-                display existing comments here
-                each comment should also have UI allowing the user to vote up/down the comment
-                as well as delete it
-                 -->
                 <ul class="comments">
                     <li class="comment" ng-repeat="comment in comments">
-                        <div class="rating">
-                            <rating name="rating" max="5" ng-model="comment.rating" readonly="true"></rating>
-                        </div>
-
                         <div class="remove">
                             <span class="glyphicon glyphicon-remove" ng-click="deleteComment(comment)"></span>
+                        </div>
+
+                        <div class="rating">
+                            <rating name="rating" max="5" ng-model="comment.rating" readonly="true"></rating>
                         </div>
 
                         <h3 class="commentTitle">{{comment.title}}</h3>

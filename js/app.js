@@ -67,7 +67,7 @@ angular.module('ReviewApp', ['ui.bootstrap'])
                 })
                 .error(function(err) {
                     console.log(err);
-                })
+                });
 //                .finally(function() {
 //                    $scope.loading = false;
 //                });
@@ -86,6 +86,6 @@ angular.module('ReviewApp', ['ui.bootstrap'])
                 })
                 .finally(function() {
                     $scope.loading = false;
-                })
+                });
         }
     });
