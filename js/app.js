@@ -33,7 +33,7 @@ angular.module('ReviewApp', ['ui.bootstrap'])
 
         $scope.getComments();
 
-        console.log($scope.comments);
+        //console.log($scope.comments);
 
         $scope.newComment = {rating: 1, name: '', title: '', body: '', score: 0};
 
@@ -62,16 +62,21 @@ angular.module('ReviewApp', ['ui.bootstrap'])
                 }
             })
                 .success(function(responseData) {
-                    console.log(responseData);
-                    comment.score = responseData.score;
+                    //console.log(responseData);
+                    if(responseData.score < 0) {
+                        //catch the case where two people are voting on the same thing and stop it from going below 0
+                        $scope.incrementScore(comment, 1);
+                    } else {
+                        comment.score = responseData.score;
+                    }
                 })
                 .error(function(err) {
-                    console.log(err);
+                    $scope.errorMessage = err;
                 });
 //                .finally(function() {
 //                    $scope.loading = false;
 //                });
-            console.log($scope.comments);
+            //console.log($scope.comments);
         }; //incrementScore()
 
         $scope.deleteComment = function(comment) {
